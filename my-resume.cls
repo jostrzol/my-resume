@@ -262,7 +262,7 @@
                     {\Huge\bfseries\color{headerfontcolor}\MakeUppercase{\@name}\par}
                 \end{minipage}%
                 \vfill%
-                \begin{minipage}[b][\dimexpr \headerheight-2em-\marginbottom]{\linewidth}%
+                \begin{minipage}[b][\dimexpr \headerheight-2em-\marginbottom]{\dimexpr \linewidth-1em}%
                     {\large\bfseries\color{headerfontcolor}\@tagline\par}
                 \end{minipage}%
         % finish the minipages for text and photo if photo is given
@@ -301,6 +301,7 @@
 \newcommand{\homepage}[2]{\infofield{\faHome}{\href{#2}{#1}}}
 \newcommand{\linkedin}[2]{\infofield{\faLinkedin}{\href{#2}{#1}}}
 \newcommand{\github}[2]{\infofield{\faGithub}{\href{#2}{#1}}}
+\newcommand{\gitlab}[2]{\infofield{\faGitlab}{\href{#2}{#1}}}
 \newcommand{\orcid}[2]{\infofield{\aiOrcid}{\href{#2}{#1}}}
 \newcommand{\ads}[2]{\infofield{\aiADS}{\href{#2}{#1}}}
 
@@ -336,7 +337,7 @@
             \hspace{\dimexpr \marginleft+\marginright}%
             \@mainbar
         }{% if double layout, the highlight bar alternates
-            \ifthispageodd{% if the page is odd, the highlight bar is on the left (as is for single layout)
+            \Ifthispageodd{% if the page is odd, the highlight bar is on the left (as is for single layout)
                 \@highlightbar
                 \hspace{\dimexpr \marginleft+\marginright}%
                 \@mainbar
@@ -399,19 +400,36 @@
     \begin{minipage}[t]{\jobpositionlength}% minipage for position
         {\large \color{emphasis} #3}
     \end{minipage}%
-    \ifstrequal{#4}{}{}{\par \vspace{0.1em} \footnotesize #4}
+    \ifstrequal{#4}{}{}{\par \vspace{0.3em} \footnotesize #4}
     \par\normalsize
     \vspace{0.5em}
 }
 
+\newlength{\skillgradewidth}
+\setlength{\skillgradewidth}{5.5em}
+
+% skill with custom grade
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\gradedskill}[2]{%
+    \begin{minipage}{\dimexpr \linewidth-\skillgradewidth-1em}
+        \textcolor{emphasis}{\textbf{#1}}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{\skillgradewidth}
+        #2
+    \end{minipage}
+    \par
+}
 
 % skill with 5 dot bar chart
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\skill}[2]{%
-    \textcolor{emphasis}{\textbf{#1}}\hfill
-    \foreach \x in {1,...,5}{%
-      \space{\ifnumgreater{\x}{#2}{\color{gray}}{\color{accent}}\faCircle}}\par%
+    \gradedskill{#1}{
+        \foreach \x in {1,...,5}{%
+          \space{\ifnumgreater{\x}{#2}{\color{gray}}{\color{accent}}\faCircle}}\par%
+    }
 }
 
 % skill without any charts
@@ -420,6 +438,14 @@
 \newcommand{\simpleskill}[1]{%
     \textcolor{emphasis}{\textbf{#1}}\par%
 }
+
+% \newcommand{\textskill}[2]{%
+%     \textcolor{emphasis}{\textbf{#1}}
+%     \begin{minipage}[c]{\linewidth}
+%         #2
+%     \end{minipage}\par
+%     % \textbf{#2}\par%
+% }
 
 % sectioning of skills
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
