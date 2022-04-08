@@ -80,7 +80,7 @@
 \setlength\marginleft{1cm}
 \setlength\marginright{\marginleft}
 \setlength\margintop{1cm}
-\setlength\marginbottom{1cm}
+\setlength\marginbottom{0.5cm}
 
 \RequirePackage[bindingoffset=0cm,nomarginpar,noheadfoot]{geometry}
 \geometry{left=\marginleft,right=\marginright,top=\margintop,bottom=\marginbottom}
@@ -322,7 +322,7 @@
 
 \newcommand{\mainbar}[1]{%
     \def\@mainbar{%
-        \begin{minipage}[t]{\dimexpr \textwidth-\highlightwidth}%
+        \begin{minipage}[t][\dimexpr \textheight-\headerheight-\marginbottom]{\dimexpr \textwidth-\highlightwidth}%
             #1%
         \end{minipage}%
     }
@@ -367,6 +367,18 @@
 \renewcommand{\subsection}[1]{%
   \smallskip%
   {\color{emphasis}\large\bfseries{#1}\par}\medskip
+}
+
+% footer
+\newcommand{\footer}[1]{
+    \null
+    \vfill
+    \begin{minipage}{\linewidth}
+        \footnotesize{
+            \color{gray}
+            #1
+        }
+    \end{minipage}
 }
 
 % format job/school list
