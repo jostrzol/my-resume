@@ -49,7 +49,7 @@
 \RequirePackage[skins]{tcolorbox}       % somehow required for tikz to work at all
 \RequirePackage{graphicx}
 \RequirePackage{xcolor}
-\RequirePackage{fontawesome5}
+\RequirePackage{fontawesome}
 \RequirePackage{academicons}
 
 
